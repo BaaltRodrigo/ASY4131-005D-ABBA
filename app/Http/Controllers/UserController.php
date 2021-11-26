@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\PersonalInformation;
 use App\Http\Requests\StoreUserRequest;
 
 class UserController extends Controller
@@ -22,8 +24,13 @@ class UserController extends Controller
         $user = User::create([
             'id' => $request->id,
             'username' => $request->username,
-            'password' => $securePassword
+            'password' => $securePassword,
         ]);
         return $user;
+    }
+
+    public function delete(User $user) {
+        $user->delete();
+        return response()->json(['message' => 'Deleted'], 200);
     }
 }

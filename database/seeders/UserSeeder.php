@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         $securePassword = Hash::make('password');
-        User::create(['id' => '19', 'username' => 'admin', 'password' => $securePassword]);
-        User::create(['id' => '27', 'username' => 'admin2', 'password' => $securePassword]);
-        User::create(['id' => '1K', 'username' => 'admin3', 'password' => $securePassword]);
+        User::create(['id' => '19', 'username' => 'ro.pizarror', 'password' => $securePassword]);
+        User::create(['id' => '27', 'username' => 'c.walters', 'password' => $securePassword]);
+        User::create(['id' => '1K', 'username' => 'admin', 'password' => $securePassword]);
     }
 }

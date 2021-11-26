@@ -21,6 +21,7 @@ class Authenticate extends Middleware
     }
 
     public function handle($request, Closure $next, ...$guards) {
+        $request->headers->set('Accept', 'application/vnd.api+json');
         // Add jwt cookie as Authorization
         if ($jwt = $request->cookie('jwt')) {
             $request->headers->set('Authorization', 'Bearer ' . $jwt);

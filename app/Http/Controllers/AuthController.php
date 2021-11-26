@@ -14,16 +14,23 @@ class AuthController extends Controller
 
         // Credentials OK
         $user = auth()->user();
-        $newToken = $user->createToken('access_token')->plainTextToken;
+        $newToken = $user->createToken('token')->plainTextToken;
 
         // Create cookie token
         $cookie = cookie('jwt', $newToken, 60 * 24); // Token last a day
 
-        return response(['message' => 'Success'])
-            ->withCookie($cookie);
+        return response([
+                'message' => 'Success',
+                'access_token' => $newToken
+            ])->withCookie($cookie);
     }
 
     public function me(Request $request) {
         return auth()->user();
+    }
+
+    public function logout(Request $request) {
+        $request->user()->currentAccessToken()->delete();
+        return response(['message' => 'Success']);
     }
 }
