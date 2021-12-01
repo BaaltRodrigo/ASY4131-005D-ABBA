@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AttendanceToken;
 use App\Models\Course;
+use App\Http\Resources\CourseResource;
+use App\Http\Resources\CourseShortCollection;
+use App\Http\Resources\CourseShortResource;
 
 class CourseController extends Controller
 {
     public function index(Request $request) {
-        return Course::all();
+        return new CourseShortCollection(Course::all());
     }
 
     public function show(Request $request) {
+        CourseResource::withoutWrapping();
         $course = Course::findOrFail($request->course);
         // Agregar aca los tokens de asistencia
-        $course->attendance_tokens;
-        return $course;
+        return new CourseResource($course);
     }
 
     public function attendances(Request $request) {

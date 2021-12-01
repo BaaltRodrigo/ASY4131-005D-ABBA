@@ -49,6 +49,12 @@ Route::middleware('auth:sanctum')->group(function() {
             });
         });
     });
+
+    Route::prefix('attendances')->group(function() {
+        Route::prefix('{attendance}')->group(function() {
+            Route::get('', [AttendanceController::class, 'show'])->name('attendances.show');
+        });
+    });
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
