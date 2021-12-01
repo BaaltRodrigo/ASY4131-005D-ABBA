@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PersonalInformationController;
 /*
@@ -33,6 +34,19 @@ Route::middleware('auth:sanctum')->group(function() {
             Route::post('personal-information', [PersonalInformationController::class, 'store'])
                 ->name('users.personal-info.store');
             Route::delete('', [UserController::class, 'delete'])->name('user.delete');
+        });
+    });
+
+    Route::prefix('courses')->group(function() {
+        Route::get('', [CourseController::class, 'index'])->name('courses.index');
+
+        Route::prefix('{course}')->group(function() {
+            Route::get('', [CourseController::class, 'show'])->name('courses.show');
+
+            Route::prefix('attendances')->group(function() {
+                Route::get('', [CourseController::class, 'attendances'])->name('courses.attendances');
+                Route::post('', [CourseController::class, 'createAttendance'])->name('courses.attendance.create');
+            });
         });
     });
 });
