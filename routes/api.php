@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PersonalInformationController;
@@ -53,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::prefix('attendances')->group(function() {
         Route::prefix('{attendance}')->group(function() {
             Route::get('', [AttendanceController::class, 'show'])->name('attendances.show');
+            Route::post('addUser', [AttendanceController::class, 'addUser'])->name('attendance.add-user');
         });
     });
 });

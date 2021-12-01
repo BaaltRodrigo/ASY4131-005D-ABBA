@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AttendanceResource extends JsonResource
+class AttendanceUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,8 @@ class AttendanceResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'created_at' => $this->created_at->toDateString(),
-            'link' => route('attendances.show', ['attendance', $this->id]),
-            'asistencias' => new AttendanceUserCollection($this->users)
+            'usuario' => $this->pivot->user_id,
+            'fecha' => $this->pivot->created_at->toDateString()
         ];
     }
 }

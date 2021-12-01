@@ -34,4 +34,9 @@ class User extends Authenticatable
     ];
 
     public $incrementing = false; // No auto-increment id
+
+    public function attendance() {
+        return $this->belongsToMany(AttendanceToken::class, 'attendance_users')
+            ->withTimestamps();
+    }
 }

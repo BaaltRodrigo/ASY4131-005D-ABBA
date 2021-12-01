@@ -17,4 +17,9 @@ class AttendanceToken extends Model
     public function course() {
         return $this->belongsTo(Course::class);
     }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'attendance_users')
+            ->withTimestamps();
+    }
 }
