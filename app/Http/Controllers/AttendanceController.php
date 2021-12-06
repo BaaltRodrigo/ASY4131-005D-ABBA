@@ -28,6 +28,11 @@ class AttendanceController extends Controller
                 'message' => 'User attendance already exists',
                 'status' => 400
             ],400);
+        } catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Cannot find attendance',
+                'status' => 404
+            ], 404);
         }
     }
 }

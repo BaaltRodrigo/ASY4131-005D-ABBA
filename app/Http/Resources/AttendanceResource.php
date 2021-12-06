@@ -17,8 +17,8 @@ class AttendanceResource extends JsonResource
         return [
             'id' => $this->id,
             'created_at' => $this->created_at->toDateString(),
-            'link' => route('attendances.show', ['attendance', $this->id]),
-            'asistencias' => new AttendanceUserCollection($this->users)
+            'link' => route('attendances.show', ['attendance' => $this->id]),
+            // 'asistencias' => new AttendanceUserCollection($this->users)
         ];
     }
 }

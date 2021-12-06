@@ -8,10 +8,12 @@ use App\Models\Course;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\CourseShortCollection;
 use App\Http\Resources\CourseShortResource;
+use App\Http\Resources\AttendanceResource;
 
 class CourseController extends Controller
 {
     public function index(Request $request) {
+        CourseShortCollection::withoutWrapping();
         return new CourseShortCollection(Course::all());
     }
 
@@ -28,8 +30,10 @@ class CourseController extends Controller
     }
 
     public function createAttendance(Request $request) {
+        AttendanceResource::withoutWrapping();
         $course = Course::findOrFail($request->course);
         $attendance_token = AttendanceToken::create(['course_id' => $course->id]);
-        return $attendance_token;
+        return new AttendanceResource($attendance_token);
+        // return response()=>json(route('attendances.show', ['attendance' => $attendance_token->id]));
     }
 }
